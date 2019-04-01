@@ -55,7 +55,7 @@ def main():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    parser.add_argument('-g', '--gpu', type=int, required=True, help='gpu id')
+    parser.add_argument('-g', '--gpu', type=str, default="0,1,2,3", help='gpu id')
     parser.add_argument('--resume', help='checkpoint path')
     # configurations (same configuration as original work)
     # https://github.com/shelhamer/fcn.berkeleyvision.org
@@ -116,7 +116,7 @@ def main():
         vgg16 = torchfcn.models.VGG16(pretrained=True)
         model.copy_params_from_vgg16(vgg16)
     if cuda:
-        model = model.cuda()
+        model = torch.nn.DataParallel(model).cuda() # for multi-gpu training
 
     # 3. optimizer
 
