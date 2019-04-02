@@ -16,7 +16,7 @@ import tqdm
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('model_file', help='Model path')
-    parser.add_argument('-g', '--gpu', type=int, default=0)
+    parser.add_argument('-g', '--gpu', type=str, default="0,1,2,3")
     args = parser.parse_args()
 
     os.environ['CUDA_VISIBLE_DEVICES'] = str(args.gpu)
@@ -30,7 +30,7 @@ def main():
         num_workers=4, pin_memory=True)
 
     n_class = len(val_loader.dataset.class_names)
-
+    print(osp.basename(model_file))
     if osp.basename(model_file).startswith('fcn32s'):
         model = torchfcn.models.FCN32s(n_class=21)
     elif osp.basename(model_file).startswith('fcn16s'):
@@ -43,7 +43,7 @@ def main():
     else:
         raise ValueError
     if torch.cuda.is_available():
-        model = model.cuda()
+        model = torch.nn.DataParallel(model).cuda()
     print('==> Loading %s model file: %s' %
           (model.__class__.__name__, model_file))
     model_data = torch.load(model_file)
