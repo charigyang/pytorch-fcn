@@ -21,7 +21,7 @@ def main():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    parser.add_argument('-g', '--gpu', type=int, required=True, help='gpu id')
+    parser.add_argument('-g', '--gpu', type=str, default="0,1,2,3", help='gpu id')
     parser.add_argument('--resume', help='checkpoint path')
     # configurations (same configuration as original work)
     # https://github.com/shelhamer/fcn.berkeleyvision.org
@@ -92,7 +92,7 @@ def main():
             fcn16s.load_state_dict(state_dict['model_state_dict'])
         model.copy_params_from_fcn16s(fcn16s)
     if cuda:
-        model = model.cuda()
+        model = torch.nn.DataParallel(model).cuda()
 
     # 3. optimizer
 
