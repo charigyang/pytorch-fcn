@@ -11,7 +11,7 @@ import torch
 import yaml
 
 import torchfcn
-
+from unet import UNet
 
 def git_hash():
     cmd = 'git log -n 1 --pretty="%h"'
@@ -31,7 +31,7 @@ def get_parameters(model, bias=False):
         torchfcn.models.FCN32s,
         torchfcn.models.FCN16s,
         torchfcn.models.FCN8s,
-        torchfcn.models.UNet,
+        UNet,
     )
     for m in model.modules():
         if isinstance(m, nn.Conv2d):
@@ -105,7 +105,7 @@ def main():
 
     # 2. model
 
-    model = torchfcn.models.UNet()
+    model = UNet()
     start_epoch = 0
     start_iteration = 0
     if args.resume:
