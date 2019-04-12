@@ -59,7 +59,7 @@ class up_conv(nn.Module):
         x = self.up(x)
         return x
 
-class U_Net(nn.Module):
+class UNet(nn.Module):
     def __init__(self,img_ch=3,output_ch=1):
         super(U_Net,self).__init__()
         

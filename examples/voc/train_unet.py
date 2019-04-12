@@ -31,7 +31,7 @@ def get_parameters(model, bias=False):
         torchfcn.models.FCN32s,
         torchfcn.models.FCN16s,
         torchfcn.models.FCN8s,
-        torchfcn.models.unet,
+        torchfcn.models.UNet,
     )
     for m in model.modules():
         if isinstance(m, nn.Conv2d):
@@ -74,7 +74,7 @@ def main():
     )
     args = parser.parse_args()
 
-    args.model = 'unet'
+    args.model = 'UNet'
     args.git_hash = git_hash()
 
     now = datetime.datetime.now()
@@ -105,7 +105,7 @@ def main():
 
     # 2. model
 
-    model = torchfcn.models.unet()
+    model = torchfcn.models.UNet()
     start_epoch = 0
     start_iteration = 0
     if args.resume:
