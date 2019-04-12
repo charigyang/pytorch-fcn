@@ -29,7 +29,7 @@ def init_weights(net, init_type='normal', gain=0.02):
     net.apply(init_func)
 
 class UNet(nn.Module):
-    def __init__(self,img_ch=3,output_ch=1):
+    def __init__(self,img_ch=3,output_ch=21):
         super(UNet, self).__init__()
         
         self.Maxpool = nn.MaxPool2d(kernel_size=2,stride=2)
