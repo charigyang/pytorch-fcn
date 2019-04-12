@@ -66,10 +66,12 @@ class VOCClassSegBase(data.Dataset):
         # load image
         img_file = data_file['img']
         img = PIL.Image.open(img_file)
+        img = img.resize((320,480), Image.ANTIALIAS)
         img = np.array(img, dtype=np.uint8)
         # load label
         lbl_file = data_file['lbl']
         lbl = PIL.Image.open(lbl_file)
+        lbl = lbl.resize((320,480), Image.ANTIALIAS)
         lbl = np.array(lbl, dtype=np.int32)
         lbl[lbl == 255] = -1
         if self._transform:
