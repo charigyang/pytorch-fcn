@@ -72,6 +72,8 @@ class VOCClassSegBase(data.Dataset):
         lbl = PIL.Image.open(lbl_file)
         lbl = np.array(lbl, dtype=np.int32)
         lbl[lbl == 255] = -1
+        print(img.shape())
+        print(lbl.shape())
         if self._transform:
             return self.transform(img, lbl)
         else:
