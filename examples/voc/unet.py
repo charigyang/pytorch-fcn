@@ -57,20 +57,21 @@ class UNet(nn.Module):
 
     def forward(self,x):
         # encoding path
+        print(x.size())
         x1 = self.Conv1(x)
-
+        print(x1.size())
         x2 = self.Maxpool(x1)
         x2 = self.Conv2(x2)
-        
+        print(x2.size())
         x3 = self.Maxpool(x2)
         x3 = self.Conv3(x3)
-
+        print(x3.size())
         x4 = self.Maxpool(x3)
         x4 = self.Conv4(x4)
-
+        print(x4.size())
         x5 = self.Maxpool(x4)
         x5 = self.Conv5(x5)
-
+        print(x5.size())
         # decoding + concat path
         d5 = self.Up5(x5)
         d5 = torch.cat((x4,d5),dim=1)
