@@ -62,7 +62,6 @@ class VOCClassSegBase(data.Dataset):
         return len(self.files[self.split])
 
     def __getitem__(self, index):
-        raise Exception
         data_file = self.files[self.split][index]
         # load image
         img_file = data_file['img']
