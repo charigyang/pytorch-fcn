@@ -152,11 +152,13 @@ class SBDClassSeg(VOCClassSegBase):
         # load image
         img_file = data_file['img']
         img = PIL.Image.open(img_file)
+        img = img.resize((320,480), Image.ANTIALIAS)
         img = np.array(img, dtype=np.uint8)
         # load label
         lbl_file = data_file['lbl']
         mat = scipy.io.loadmat(lbl_file)
         lbl = mat['GTcls'][0]['Segmentation'][0].astype(np.int32)
+        lbl = lbl.resize((320,480), Image.ANTIALIAS)
         lbl[lbl == 255] = -1
         if self._transform:
             return self.transform(img, lbl)
